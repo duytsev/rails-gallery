@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
 
-  root 'static_pages#home'
+  root 'pages#home'
+  get 'add' => 'pages#add'
+  get 'settings' => 'pages#settings'
 end
