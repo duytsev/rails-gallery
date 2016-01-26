@@ -11,6 +11,9 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bootstrap-sass', '3.3.6'
+gem 'sorcery', '~> 0.9.1'
+gem 'pg', '~> 0.18.4'
+gem 'validates_email_format_of', '~> 1.6'
 
 group :development, :test do
   gem 'byebug'
