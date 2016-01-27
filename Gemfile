@@ -14,6 +14,8 @@ gem 'bootstrap-sass', '3.3.6'
 gem 'sorcery', '~> 0.9.1'
 gem 'pg', '~> 0.18.4'
 gem 'validates_email_format_of', '~> 1.6'
+gem 'will_paginate', '~> 3.1'
+gem 'bcrypt', '~> 3.1'
 
 group :development, :test do
   gem 'byebug'
