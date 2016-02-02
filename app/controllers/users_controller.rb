@@ -31,7 +31,9 @@ class UsersController < ApplicationController
 
   def reset_password
     user = User.find(params[:id])
-    user.update_password
+    user.update_password(old_password: params[:old_password],
+                         new_password: params[:new_password],
+                         new_password_confirmation: params[:new_password_confirmation])
     redirect_to :back
   end
 
