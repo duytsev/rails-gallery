@@ -4,6 +4,10 @@ FactoryGirl.define do
     login 'admin'
     password '123123'
     password_confirmation '123123'
+
+    trait :admin do
+      admin true
+    end
   end
 
 end

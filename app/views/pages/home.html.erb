@@ -1,7 +1,7 @@
 <div class="main-content">
   <% if !has_users %>
     <p>В системе нет ни одного пользователя</p>
-    <%= link_to 'Регистрация', new_user_path %>
+    <%= link_to 'Регистрация', new_user_path, id: 'register_link' %>
   <% else  %>
       <h1>Main page</h1>
       <p>gallery content</p>

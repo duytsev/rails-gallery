@@ -28,7 +28,7 @@ describe User do
 
   describe 'password update' do
     context 'matching passwords' do
-      it 'updates password' do
+      it 'updates password successfully' do
         user = create(:user)
         user.update_password(old_password: '123123',
                              new_password: '123456',

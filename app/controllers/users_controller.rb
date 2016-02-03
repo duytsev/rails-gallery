@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     if @user.save
       session[:has_users] = true
       auto_login @user if !logged_in?
-      redirect_to root_path
+      redirect_to users_path
     else
       render 'new'
     end
