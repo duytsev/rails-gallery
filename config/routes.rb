@@ -6,11 +6,12 @@ Rails.application.routes.draw do
 
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
+  get 'logout' => 'sessions#destroy'
   delete 'logout' => 'sessions#destroy'
 
   resources :users do
     member do
-      post 'reset_password'
+      put 'reset_password'
     end
   end
 
