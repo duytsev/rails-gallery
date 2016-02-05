@@ -12,11 +12,11 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @user.admin = true if !has_users
   end
 
   def create
     @user = User.new(user_params)
-    @user.admin = true if !has_users
     if @user.save
       session[:has_users] = true
       flash[:success] = "User #{@user.login} successfully created"
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
     user.update_password(old_password: params[:old_password],
                          new_password: params[:new_password],
                          new_password_confirmation: params[:new_password_confirmation])
-    redirect_to :back
+    redirect_to user
   end
 
   def not_authenticated
