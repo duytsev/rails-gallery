@@ -37,9 +37,14 @@ class UsersController < ApplicationController
 
   def reset_password
     user = User.find(params[:id])
-    user.update_password(old_password: params[:old_password],
-                         new_password: params[:new_password],
-                         new_password_confirmation: params[:new_password_confirmation])
+    if invalid_old_password?(user) || not_eql_new_passwords?
+      flash[:danger] = 'Old password is invalid or/and new password are not equal'
+    else
+      new_crypted_password = encrypt(params[:new_password], user.salt)
+      if user.update_attributes(crypted_password: new_crypted_password)
+        flash[:success] = 'Password successfully updated'
+      end
+    end
     redirect_to user
   end
 
@@ -57,4 +62,11 @@ class UsersController < ApplicationController
     redirect_to root_path if !current_user.admin
   end
 
+  def invalid_old_password?(user)
+    !user.valid_password? params[:old_password]
+  end
+
+  def not_eql_new_passwords?
+    !params[:new_password].eql?(params[:new_password_confirmation])
+  end
 end

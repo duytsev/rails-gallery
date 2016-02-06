@@ -164,7 +164,6 @@ describe UsersController do
       end
     end
 
-    #TODO: broken
     context 'admin' do
       before do
         @admin = create(:user, :admin, email: 'admin1@example.com', login: 'admin1')

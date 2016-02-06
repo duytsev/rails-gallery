@@ -6,4 +6,8 @@ module UsersHelper
     end
     session[:has_users]
   end
+
+  def encrypt(password, salt)
+    Sorcery::CryptoProviders::BCrypt.encrypt(password, salt)
+  end
 end
