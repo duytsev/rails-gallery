@@ -9,7 +9,7 @@
   <h3>Изменить пароль</h3>
   <div class="row">
       <div class="col-md-6">
-          <%= form_tag(reset_password_user_path, method: :post, class: 'form-pass-reset') do %>
+          <%= form_tag(reset_password_user_path, method: :put, class: 'form-pass-reset') do %>
               <%= label_tag :old_password, 'Старый пароль' %>
               <%= password_field_tag :old_password, '', class: 'form-control' %>
 

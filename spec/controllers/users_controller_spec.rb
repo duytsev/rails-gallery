@@ -176,9 +176,8 @@ describe UsersController do
             old_password: '123123',
             new_password: '123456',
             new_password_confirmation: '123456'
-        updated_user = User.find(@user.id)
-        expect(response).to have_http_status(302)
-        expect(updated_user.valid_password?('123456')).to be true
+        @user.reload
+        expect(@user.valid_password?('123456')).to be true
       end
     end
   end
