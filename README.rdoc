@@ -1,2 +1,2 @@
 {<img alt='Stories in Ready' src='https://badge.waffle.io/duytsev/rails_gallery.png?label=ready&title=Ready' />}[https://waffle.io/duytsev/rails_gallery]
-
+[![Build Status](https://travis-ci.org/duytsev/rails_gallery.svg)](https://travis-ci.org/duytsev/flashcards)
