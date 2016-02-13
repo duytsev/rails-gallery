@@ -7,7 +7,6 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Project name</a>
     </div>
     <div id="navbar" class="collapse navbar-collapse">
 
@@ -25,7 +24,8 @@
       <% if has_users %>
           <ul class="nav navbar-nav navbar-right">
             <% if logged_in? %>
-                <li><%= link_to "#{current_user.login} |", current_user, id: 'user_link' %></li>
+                <li><%= link_to "#{current_user.login}", current_user, id: 'user_link' %></li>
+                <li class='separator'><p> | </p></li>
                 <li><%= link_to 'Выйти', logout_path, method: :delete, id: 'logout_link' %></li>
             <% else %>
                 <li><%= link_to 'Войти', login_path, id: 'login_link' %></li>
