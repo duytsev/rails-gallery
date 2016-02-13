@@ -1,26 +1,30 @@
 <div>
   <h3>Информация</h3>
+
   <div class="row">
-      <div class="col-md-6">
-          <p>Почта: <%= @user.email %></p>
-          <p>Логин: <%= @user.login %></p>
-      </div>
+    <div class="col-md-6">
+      <p>Почта: <%= @user.email %></p>
+
+      <p>Логин: <%= @user.login %></p>
+    </div>
   </div>
-  <h3>Изменить пароль</h3>
-  <div class="row">
-      <div class="col-md-6">
+  <% if current_user.admin %>
+      <h3>Изменить пароль</h3>
+      <div class="row">
+        <div class="col-md-6">
           <%= form_tag(reset_password_user_path, method: :put, class: 'form-pass-reset') do %>
               <%= label_tag :old_password, 'Старый пароль' %>
               <%= password_field_tag :old_password, '', class: 'form-control' %>
 
               <%= label_tag :new_password, 'Новый пароль' %>
-              <%= password_field_tag :new_password, '',  class: 'form-control' %>
+              <%= password_field_tag :new_password, '', class: 'form-control' %>
 
               <%= label_tag :new_password_confirmation, 'Подтверждение пароля' %>
               <%= password_field_tag :new_password_confirmation, '', class: 'form-control' %>
 
               <%= submit_tag 'Изменить', class: 'btn btn-primary' %>
           <% end %>
+        </div>
       </div>
-  </div>
+  <% end %>
 </div>

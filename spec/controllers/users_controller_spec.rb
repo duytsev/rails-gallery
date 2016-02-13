@@ -36,6 +36,8 @@ describe UsersController do
   end
 
   describe 'GET #show' do
+    render_views
+
     before do
       @user = create(:user)
     end
@@ -51,7 +53,8 @@ describe UsersController do
       it 'renders root page' do
         login_user @user
         get :show, id: @user.id
-        expect(response).to redirect_to root_path
+        expect(assigns(:user)).to eq(@user)
+        expect(response.body.to_s).not_to have_css '.form-pass-reset'
       end
     end
 
@@ -64,6 +67,7 @@ describe UsersController do
         login_user @admin
         get :show, id: @user.id
         expect(assigns(:user)).to eq(@user)
+        expect(response.body.to_s).to have_css '.form-pass-reset'
       end
     end
   end

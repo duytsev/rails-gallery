@@ -25,6 +25,7 @@
       <% if has_users %>
           <ul class="nav navbar-nav navbar-right">
             <% if logged_in? %>
+                <li><%= link_to "#{current_user.login} |", current_user, id: 'user_link' %></li>
                 <li><%= link_to 'Выйти', logout_path, method: :delete, id: 'logout_link' %></li>
             <% else %>
                 <li><%= link_to 'Войти', login_path, id: 'login_link' %></li>

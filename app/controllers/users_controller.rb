@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :require_login
-  before_action :admin_user
+  before_action :admin_user, except: [:show]
 
   def index
     @users = User.paginate(page: params[:page]).order('id ASC')
@@ -36,16 +36,15 @@ class UsersController < ApplicationController
   end
 
   def reset_password
-    user = User.find(params[:id])
-    if invalid_old_password?(user) || not_eql_new_passwords?
+    if invalid_old_password?(@user) || not_eql_new_passwords?
       flash[:danger] = 'Old password is invalid or/and new password are not equal'
     else
-      new_crypted_password = encrypt(params[:new_password], user.salt)
-      if user.update_attributes(crypted_password: new_crypted_password)
+      new_crypted_password = encrypt(params[:new_password], @user.salt)
+      if @user.update_attributes(crypted_password: new_crypted_password)
         flash[:success] = 'Password successfully updated'
       end
     end
-    redirect_to user
+    redirect_to @user
   end
 
   def not_authenticated
