@@ -74,6 +74,11 @@ describe UsersController do
 
   describe 'GET #new' do
     context 'not authenticated' do
+      render_views
+      before do
+        @user = create(:user)
+      end
+
       it 'renders login page' do
         get :new
         expect(response).to redirect_to login_path
@@ -107,6 +112,10 @@ describe UsersController do
 
   describe 'POST create' do
     context 'not authenticated' do
+      before do
+        @user = create(:user)
+      end
+
       it 'does not create a new user' do
         expect {
           post :create, user: FactoryGirl.attributes_for(:user)
@@ -142,6 +151,7 @@ describe UsersController do
 
   describe 'PUT reset_password' do
     before do
+      skip 'rewrite as feature spec'
       @user = create(:user)
     end
 
@@ -159,7 +169,7 @@ describe UsersController do
     context 'simple user' do
       it 'does not reset password' do
         login_user @user
-        put :reset_password, id: @user.id,
+        put :reset_password, id: @user,
             old_password: '123123',
             new_password: '123456',
             new_password_confirmation: '123456'
@@ -175,6 +185,7 @@ describe UsersController do
 
       it 'resets password' do
         login_user @admin
+        visit user_path @user
         put :reset_password, id: @user,
             old_password: '123123',
             new_password: '123456',

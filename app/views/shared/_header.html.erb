@@ -21,7 +21,7 @@
         <% end %>
       </ul>
 
-      <% if has_users %>
+      <% if has_users? %>
           <ul class="nav navbar-nav navbar-right">
             <% if logged_in? %>
                 <li><%= link_to "#{current_user.login}", current_user, id: 'user_link' %></li>

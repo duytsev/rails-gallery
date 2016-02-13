@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  before_action :require_login
-  before_action :admin_user, except: [:show]
+  before_action :require_login, except: [:new, :create]
+  before_action :admin_user?, only: [:index, :destroy, :reset_password]
+  before_action :no_users_or_admin?, only: [:new, :create]
 
   def index
     @users = User.paginate(page: params[:page]).order('id ASC')
@@ -12,13 +13,13 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    @user.admin = true if !has_users
   end
 
   def create
     @user = User.new(user_params)
+    @user.admin = true if no_users?
     if @user.save
-      session[:has_users] = true
+      session[:has_users?] = true
       flash[:success] = "User #{@user.login} successfully created"
       if !logged_in?
         auto_login @user
@@ -57,8 +58,10 @@ class UsersController < ApplicationController
     params.require(:user).permit(:email, :login, :password, :password_confirmation)
   end
 
-  def admin_user
-    redirect_to root_path if !current_user.admin
+  def admin_user?
+    if logged_in? && !current_user.admin
+      redirect_to root_path
+    end
   end
 
   def invalid_old_password?(user)
@@ -67,5 +70,17 @@ class UsersController < ApplicationController
 
   def not_eql_new_passwords?
     !params[:new_password].eql?(params[:new_password_confirmation])
+  end
+
+  def no_users?
+    !has_users?
+  end
+
+  def no_users_or_admin?
+    if logged_in? && !current_user.admin
+      redirect_to root_path
+    elsif !logged_in? && has_users?
+      redirect_to login_path
+    end
   end
 end

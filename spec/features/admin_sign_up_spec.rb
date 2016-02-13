@@ -14,6 +14,7 @@ feature 'Admin registers new user' do
   scenario 'with valid credentials' do
     visit users_path
     click_link 'add_user'
+    expect(current_path).to eq new_user_path
     fill_in 'user_email', with: 'user1@example.com'
     fill_in 'user_login', with: 'user1'
     fill_in 'user_password', with: '123123'
@@ -26,6 +27,7 @@ feature 'Admin registers new user' do
   scenario 'with invalid email' do
     visit users_path
     click_link 'add_user'
+    expect(current_path).to eq new_user_path
     fill_in 'user_email', with: 'user1example.com'
     fill_in 'user_login', with: 'user1'
     fill_in 'user_password', with: '123123'
@@ -38,6 +40,7 @@ feature 'Admin registers new user' do
   scenario 'with invalid password' do
     visit users_path
     click_link 'add_user'
+    expect(current_path).to eq new_user_path
     fill_in 'user_email', with: 'user1example.com'
     fill_in 'user_login', with: 'user1'
     fill_in 'user_password', with: '12312'
@@ -50,6 +53,7 @@ feature 'Admin registers new user' do
   scenario 'with invalid password confirmation' do
     visit users_path
     click_link 'add_user'
+    expect(current_path).to eq new_user_path
     fill_in 'user_email', with: 'user1example.com'
     fill_in 'user_login', with: 'user1'
     fill_in 'user_password', with: '123123'
