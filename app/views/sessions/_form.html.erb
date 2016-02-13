@@ -1,0 +1,9 @@
+<%= form_for(:session, url: login_path) do |f| %>
+    <%= f.label :email, 'Почта' %>
+    <%= f.email_field :email, class: 'form-control' %>
+
+    <%= f.label :password, 'Пароль' %>
+    <%= f.password_field :password, class: 'form-control' %>
+
+    <%= f.submit 'Вход', class: 'btn btn-primary', id: 'submit_login' %>
+<% end %>

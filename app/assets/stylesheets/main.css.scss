@@ -2,5 +2,24 @@
 @import "bootstrap";
 
 .content {
-  padding: 80px;
+  padding: 80px 30px;
+}
+
+.form-panel, .form-pass-reset {
+  .btn {
+    margin-top: 10px;
+  }
+}
+
+.nav > li > #logout_link {
+  padding-left: 0;
+}
+
+.nav > li > #user_link {
+  padding-right: 3px;
+}
+
+.separator p {
+  color: #9d9d9d;
+  padding: 14px 2px;
 }

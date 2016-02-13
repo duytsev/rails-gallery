@@ -7,17 +7,31 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Project name</a>
     </div>
     <div id="navbar" class="collapse navbar-collapse">
+
       <ul class="nav navbar-nav">
-        <li class="active"><%= link_to 'Галерея', root_path %></li>
-        <li><%= link_to 'Добавить', add_path %></li>
-        <li><%= link_to 'Настройки', settings_path %></li>
+        <li><%= link_to 'Галерея', root_path %></li>
+        <% if current_user %>
+            <li><%= link_to 'Добавить', add_path %></li>
+            <% if current_user.admin? %>
+                <li><%= link_to 'Пользователи', users_path %></li>
+            <% end %>
+            <li><%= link_to 'Настройки', settings_path %></li>
+        <% end %>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="./">Войти</a></li>
-      </ul>
+
+      <% if has_users %>
+          <ul class="nav navbar-nav navbar-right">
+            <% if logged_in? %>
+                <li><%= link_to "#{current_user.login}", current_user, id: 'user_link' %></li>
+                <li class='separator'><p> | </p></li>
+                <li><%= link_to 'Выйти', logout_path, method: :delete, id: 'logout_link' %></li>
+            <% else %>
+                <li><%= link_to 'Войти', login_path, id: 'login_link' %></li>
+            <% end %>
+          </ul>
+      <% end %>
     </div>
   </div>
 </nav>

@@ -11,13 +11,18 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bootstrap-sass', '3.3.6'
+gem 'sorcery', '~> 0.9.1'
+gem 'pg', '~> 0.18.4'
+gem 'validates_email_format_of', '~> 1.6'
+gem 'will_paginate', '~> 3.1'
+gem 'bcrypt', '~> 3.1'
 
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'rspec-rails', '~> 3.4'
-  gem 'factory_girl_rails', '~> 4.5'
+  gem 'factory_girl_rails', '~> 4.6'
 end
 
 group :test do

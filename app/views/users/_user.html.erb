@@ -1,0 +1,7 @@
+<li class="user">
+  <%= link_to user.login, user %>
+  <% if current_user.admin? && !current_user?(user) %>
+      | <%= link_to 'удалить', user, method: :delete,
+                    data: { confirm: "Удалить пользователя #{user.login}?" } %>
+  <% end %>
+</li>

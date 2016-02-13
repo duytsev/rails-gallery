@@ -1,0 +1,17 @@
+<%= form_for(user) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+
+    <%= f.label :email, 'Почта' %>
+    <%= f.email_field :email, class: 'form-control' %>
+
+    <%= f.label :login, 'Логин' %>
+    <%= f.text_field :login, class: 'form-control' %>
+
+    <%= f.label :password, 'Пароль' %>
+    <%= f.password_field :password, class: 'form-control' %>
+
+    <%= f.label :password_confirmation, 'Подтверждение пароля' %>
+    <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+    <%= f.submit 'Регистрация', class: "btn btn-primary", id: 'submit_registration' %>
+<% end %>

@@ -1,4 +1,9 @@
 <div class="main-content">
-  <h1>Main page</h1>
-  <p>This example is a quick exercise to illustrate how the default, static navbar and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
+  <% if !has_users %>
+    <p>В системе нет ни одного пользователя</p>
+    <%= link_to 'Регистрация', new_user_path, id: 'register_link' %>
+  <% else  %>
+      <h1>Main page</h1>
+      <p>gallery content</p>
+  <% end  %>
 </div>
