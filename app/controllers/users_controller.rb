@@ -1,14 +1,14 @@
 class UsersController < ApplicationController
   before_action :require_login, except: [:new, :create]
-  before_action :admin_user?, only: [:index, :destroy, :reset_password]
+  before_action :admin_user?, only: [:index, :destroy]
   before_action :no_users_or_admin?, only: [:new, :create]
+  before_action :valid_user, only: [:show, :reset_password]
 
   def index
     @users = User.paginate(page: params[:page]).order('id ASC')
   end
 
   def show
-    @user = User.find(params[:id])
   end
 
   def new
@@ -81,6 +81,13 @@ class UsersController < ApplicationController
       redirect_to root_path
     elsif !logged_in? && has_users?
       redirect_to login_path
+    end
+  end
+
+  def valid_user
+    @user = User.find(params[:id])
+    if current_user != @user && !current_user.admin
+      redirect_to root_path
     end
   end
 end

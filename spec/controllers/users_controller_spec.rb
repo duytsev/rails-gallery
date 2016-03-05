@@ -54,7 +54,7 @@ describe UsersController do
         login_user @user
         get :show, id: @user.id
         expect(assigns(:user)).to eq(@user)
-        expect(response.body.to_s).not_to have_css '.form-pass-reset'
+        expect(response.body.to_s).to have_css '.form-pass-reset'
       end
     end
 
@@ -63,7 +63,7 @@ describe UsersController do
         @admin = create(:user, :admin, email: 'admin1@example.com', login: 'admin1')
       end
 
-      it 'renders index page' do
+      it 'renders show page' do
         login_user @admin
         get :show, id: @user.id
         expect(assigns(:user)).to eq(@user)
@@ -102,7 +102,7 @@ describe UsersController do
         @admin = create(:user, :admin, email: 'admin1@example.com', login: 'admin1')
       end
 
-      it 'renders index page' do
+      it 'renders new page' do
         login_user @admin
         get :new
         expect(response).to have_http_status(:ok)
@@ -145,53 +145,6 @@ describe UsersController do
         expect {
           post :create, user: FactoryGirl.attributes_for(:user, email: 'user1@example.com', login: 'user1')
         }.to change { User.count }.by(1)
-      end
-    end
-  end
-
-  describe 'PUT reset_password' do
-    before do
-      skip 'rewrite as feature spec'
-      @user = create(:user)
-    end
-
-    context 'not authenticated' do
-      it 'does not reset password' do
-        put :reset_password, id: @user.id,
-                             old_password: '123123',
-                             new_password: '123456',
-                             new_password_confirmation: '123456'
-        expect(response).to have_http_status(302)
-        expect(@user.valid_password?('123123')).to be true
-      end
-    end
-
-    context 'simple user' do
-      it 'does not reset password' do
-        login_user @user
-        put :reset_password, id: @user,
-            old_password: '123123',
-            new_password: '123456',
-            new_password_confirmation: '123456'
-        expect(response).to have_http_status(302)
-        expect(@user.valid_password?('123123')).to be true
-      end
-    end
-
-    context 'admin' do
-      before do
-        @admin = create(:user, :admin, email: 'admin1@example.com', login: 'admin1')
-      end
-
-      it 'resets password' do
-        login_user @admin
-        visit user_path @user
-        put :reset_password, id: @user,
-            old_password: '123123',
-            new_password: '123456',
-            new_password_confirmation: '123456'
-        @user.reload
-        expect(@user.valid_password?('123456')).to be true
       end
     end
   end

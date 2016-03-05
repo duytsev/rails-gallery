@@ -8,23 +8,22 @@
       <p>Логин: <%= @user.login %></p>
     </div>
   </div>
-  <% if current_user.admin %>
-      <h3>Изменить пароль</h3>
-      <div class="row">
-        <div class="col-md-6">
-          <%= form_tag(reset_password_user_path, method: :put, class: 'form-pass-reset') do %>
-              <%= label_tag :old_password, 'Старый пароль' %>
-              <%= password_field_tag :old_password, '', class: 'form-control' %>
+  <h3>Изменить пароль</h3>
 
-              <%= label_tag :new_password, 'Новый пароль' %>
-              <%= password_field_tag :new_password, '', class: 'form-control' %>
+  <div class="row">
+    <div class="col-md-6">
+      <%= form_tag(reset_password_user_path, method: :put, class: 'form-pass-reset') do %>
+          <%= label_tag :old_password, 'Старый пароль' %>
+          <%= password_field_tag :old_password, '', class: 'form-control' %>
 
-              <%= label_tag :new_password_confirmation, 'Подтверждение пароля' %>
-              <%= password_field_tag :new_password_confirmation, '', class: 'form-control' %>
+          <%= label_tag :new_password, 'Новый пароль' %>
+          <%= password_field_tag :new_password, '', class: 'form-control' %>
 
-              <%= submit_tag 'Изменить', class: 'btn btn-primary' %>
-          <% end %>
-        </div>
-      </div>
-  <% end %>
+          <%= label_tag :new_password_confirmation, 'Подтверждение пароля' %>
+          <%= password_field_tag :new_password_confirmation, '', class: 'form-control' %>
+
+          <%= submit_tag 'Изменить', class: 'btn btn-primary', id: 'submit_reset' %>
+      <% end %>
+    </div>
+  </div>
 </div>
