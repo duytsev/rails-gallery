@@ -1,0 +1,7 @@
+<%= link_to 'Добавить', new_category_path, id: 'add_category' %>
+<h1>Категории</h1>
+<%= will_paginate @categories %>
+<ul class="categories">
+  <%= render @categories %>
+</ul>
+<%= will_paginate @categories %>
