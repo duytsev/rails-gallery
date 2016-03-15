@@ -5,7 +5,7 @@
     <%= f.text_field :name, class: 'form-control' %>
 
     <%= f.label :ctype, 'Тип' %>
-    <%= f.select :ctype, Category.ctypes.keys, {}, {class: 'form-control'} %>
+    <%= f.select :ctype, options_for_select(Category.types, category.ctype), {}, {class: 'form-control'} %>
 
-    <%= f.submit 'Добавить', class: 'btn btn-primary', id: 'submit_add_category' %>
+    <%= f.submit button_title, class: 'btn btn-primary', id: 'submit_add_category' %>
 <% end %>

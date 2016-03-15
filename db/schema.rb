@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20160307130605) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
-    t.string   "ctype"
+    t.integer  "ctype"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
