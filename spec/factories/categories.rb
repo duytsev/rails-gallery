@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :category do
-    name "MyString"
-    ctype ""
+    name 'Category string'
+    ctype {Category.types[:string]}
   end
 end
