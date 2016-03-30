@@ -5,7 +5,7 @@ env:
   - DB=postgresql
 before_script:
   - cp config/database.travis.yml config/database.yml
-  - psql -c 'create database flashcards_test' -U postgres
+  - psql -c 'create database gallery_test' -U postgres
 script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare

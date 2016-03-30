@@ -48,10 +48,6 @@ class UsersController < ApplicationController
     redirect_to @user
   end
 
-  def not_authenticated
-    redirect_to login_path
-  end
-
   private
 
   def user_params

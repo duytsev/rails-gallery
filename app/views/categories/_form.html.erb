@@ -1,0 +1,11 @@
+<%= form_for(category) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+
+    <%= f.label :name, 'Имя' %>
+    <%= f.text_field :name, class: 'form-control' %>
+
+    <%= f.label :ctype, 'Тип' %>
+    <%= f.select :ctype, options_for_select(Category.types, category.ctype), {}, {class: 'form-control'} %>
+
+    <%= f.submit button_title, class: 'btn btn-primary', id: 'submit_add_category' %>
+<% end %>
