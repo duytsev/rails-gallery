@@ -1,0 +1,7 @@
+<%= link_to 'Загрузить', new_upload_path %>
+<h1>Последние загрузки</h1>
+<%= will_paginate @uploads %>
+<ul class="uploads">
+  <%= render @uploads %>
+</ul>
+<%= will_paginate @uploads %>

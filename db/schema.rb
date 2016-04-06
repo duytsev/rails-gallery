@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20160331181459) do
   add_index "categorizations", ["photo_id", "category_id"], name: "index_categorizations_on_photo_id_and_category_id", unique: true, using: :btree
 
   create_table "photos", force: :cascade do |t|
+    t.string   "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "upload_id"

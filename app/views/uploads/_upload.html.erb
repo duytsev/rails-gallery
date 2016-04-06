@@ -1,0 +1,5 @@
+<li class="upload`">
+  <%= link_to upload.created_at, edit_upload_path(upload) %>
+  | <%= link_to 'удалить', upload, method: :delete,
+                data: { confirm: 'Удалить загрузку и все eе фотографии?' } %>
+</li>

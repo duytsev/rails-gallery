@@ -16,6 +16,9 @@ gem 'pg', '~> 0.18.4'
 gem 'validates_email_format_of', '~> 1.6'
 gem 'will_paginate', '~> 3.1'
 gem 'bcrypt', '~> 3.1'
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+gem 'mini_magick', '~> 4.5', '>= 4.5.1'
+gem 'jquery-fileupload-rails', '~> 0.4.6'
 
 group :development, :test do
   gem 'byebug'

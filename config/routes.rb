@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root 'pages#home'
+  root 'photos#index'
   get 'add' => 'pages#add'
   get 'settings' => 'pages#settings'
 
@@ -16,5 +16,6 @@ Rails.application.routes.draw do
   end
 
   resources :categories
-
+  resources :uploads
+  resources :photos
 end
