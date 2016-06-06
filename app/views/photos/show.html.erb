@@ -1,0 +1,2 @@
+<%= image_tag @photo.image_url(:thumb_medium) if @photo.image? %>
+<%= link_to 'Открыть оригинал', @photo.image_url %>

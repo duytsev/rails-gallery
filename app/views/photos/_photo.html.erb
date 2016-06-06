@@ -1,5 +1,3 @@
 <div class='photo col-lg-3 col-md-4 col-xs-6 thumb'>
-  <a class='thumbnail'>
-    <%= image_tag photo.image_url(:thumb) if photo.image? %>
-  </a>
+  <%= link_to image_tag(photo.image_url(:thumb_small)), photo, class: 'thumbnail' if photo.image? %>
 </div>

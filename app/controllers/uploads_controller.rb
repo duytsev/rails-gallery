@@ -12,6 +12,9 @@ class UploadsController < ApplicationController
   def create
     @upload = Upload.new(upload_params)
     if @upload.save
+      params[:upload][:photos_attributes][:image].each do |i|
+        @photo = @upload.photos.create!(image: i)
+      end
       redirect_to uploads_path
     else
       render 'new'

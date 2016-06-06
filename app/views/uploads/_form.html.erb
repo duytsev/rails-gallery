@@ -3,7 +3,7 @@
 
     <%= f.fields_for :photos do |p| %>
         <%= p.label :image, 'Изображения' %>
-        <%= p.file_field :image %>
+        <%= p.file_field :image, multiple: true, name: 'upload[photos_attributes][image][]'%>
     <% end %>
 
     <%= f.submit button_title, class: 'btn btn-primary', id: 'submit_add_upload' %>
