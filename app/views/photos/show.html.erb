@@ -1,2 +1,10 @@
-<%= image_tag @photo.image_url(:thumb_medium) if @photo.image? %>
-<%= link_to 'Открыть оригинал', @photo.image_url %>
+<div class="row">
+  <div class="col-md-5">
+    <%= link_to image_tag(@photo.image_url(:thumb_medium)), @photo.image_url if @photo.image? %>
+  </div>
+
+  <%= render partial: 'categories_form', layout: 'layouts/form_layout',
+             locals: {title: 'Категории',
+                      button_title: 'Сохранить',
+                      category: @category} %>
+</div>
