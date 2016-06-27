@@ -1,15 +1,13 @@
-<%= form_for(category) do |f| %>
-    <%= render 'shared/error_messages', object: f.object %>
+<%= form_tag({action: :update}, {method: :put}) do %>
 
     <% @categories.each do |c| %>
         <div class='category-input'>
-          <%= f.label :name, c.name, class: 'category-label' %>
-          <%= f.text_field :name, class: 'form-control' if c.string? %>
-          <%= f.text_area :name, class: 'form-control' if c.text? %>
-          <%= f.check_box :name if c.bool? %>
-          <%= f.date_select :name, class: 'form-control' if c.date? %>
+          <%= label_tag c.name, c.name, class: 'category-label' %>
+          <%= text_field_tag c.name, cvalue_by_photo_id(c, @photo.id), class: 'form-control' if c.string? %>
+          <%= text_area_tag c.name, cvalue_by_photo_id(c, @photo.id), class: 'form-control' if c.text? %>
+          <%= check_box_tag c.name, '1', cvalue_by_photo_id(c, @photo.id) if c.bool? %>
         </div>
     <% end %>
 
-    <%= f.submit button_title, class: 'btn btn-primary', id: 'submit_save_categories' %>
+    <%= submit_tag button_title, class: 'btn btn-primary', id: 'submit_save_categories' %>
 <% end %>
