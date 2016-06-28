@@ -17,5 +17,5 @@ Rails.application.routes.draw do
 
   resources :categories
   resources :uploads
-  resources :photos
+  resources :photos, except: :new
 end

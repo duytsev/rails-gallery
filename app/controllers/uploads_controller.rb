@@ -14,9 +14,9 @@ class UploadsController < ApplicationController
     if @upload.save
       params[:upload][:photos_attributes][:image].each do |i|
         @photo = @upload.photos.create!(image: i)
-        Category.all.each do |c|
-          c.categorizations.create(photo: @photo)
-        end
+        # Category.all.each do |c|
+        #   c.categorizations.create(photo: @photo)
+        # end
       end
       redirect_to uploads_path
     else

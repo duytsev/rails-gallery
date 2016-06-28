@@ -3,19 +3,13 @@ class CategoriesController < ApplicationController
 
   def index
     @categories = Category.paginate(page: params[:page]).order('name ASC')
-  end
-
-  def new
     @category = Category.new
   end
 
   def create
     @category = Category.new(cat_params)
-    if @category.save
-      redirect_to categories_path
-    else
-      render 'new'
-    end
+    @category.save
+    redirect_to categories_path
   end
 
   def edit
@@ -40,6 +34,6 @@ class CategoriesController < ApplicationController
   private
 
   def cat_params
-    params.require(:category).permit(:name, :ctype)
+    params.require(:category).permit(:name)
   end
 end

@@ -5,13 +5,11 @@ class PhotosController < ApplicationController
   end
 
   def show
-    #@photo = Photo.find(params[:id])
-    #@categories = Category.all
+    @photo = Photo.find(params[:id])
   end
 
   def edit
     @photo = Photo.find(params[:id])
-    @categories = Category.order(:name).all
   end
 
   def new
@@ -23,10 +21,17 @@ class PhotosController < ApplicationController
   end
 
   def update
-    Category.all.each do |c|
-      categorization = c.categorizations.where(photo_id: params[:id]).take
-      categorization.update photo_id: params[:id], category_id: c.id, cvalue: params[c.name]
+    @photo = Photo.find(params[:id])
+    if @photo.update(photo_params)
+      redirect_to edit_photo_path
+    else
+      render 'edit'
     end
-    redirect_to photos_path
+  end
+
+  private
+
+  def photo_params
+    params.require(:photo).permit({category_ids: []})
   end
 end
