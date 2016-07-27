@@ -32,6 +32,6 @@ class PhotosController < ApplicationController
   private
 
   def photo_params
-    params.require(:photo).permit({category_ids: []})
+    params.require(:photo).permit({category_ids: []}, :tag_list)
   end
 end

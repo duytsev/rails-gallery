@@ -2,5 +2,8 @@
     <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b|%>
         <%= b.label(class: 'check-box-label') { b.check_box(class: 'check-box') + b.text } %>
     <% end %>
+    <br/>
+    <%= f.label :name, 'Теги:' %>
+    <%= f.text_field :tag_list, class: 'form-control' %>
     <%= submit_tag button_title, class: 'btn btn-primary', id: 'submit_save_categories' %>
 <% end %>
