@@ -1,3 +1,13 @@
+<div class='row search-panel'>
+  <div class='col-md-6'>
+    <%= form_tag photos_path, {method: :get} do %>
+        <%= text_field_tag :search, params[:search], class: 'search-field' %>
+        <%= submit_tag 'Поиск', class: 'search-button' %>
+    <% end %>
+  </div>
+</div>
+<%= will_paginate @photos %>
 <div class='gallery row'>
   <%= render @photos %>
 </div>
+<%= will_paginate @photos %>

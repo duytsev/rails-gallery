@@ -12,7 +12,7 @@ class Photo < ActiveRecord::Base
   self.per_page = 20
 
   def tag_list
-    self.tags.all.order('content').map{|c| c.content}.sort.join(' ')
+    self.tags.all.order('content').map{|t| t.content}.sort.join(' ')
   end
 
   def tag_list=(tags)

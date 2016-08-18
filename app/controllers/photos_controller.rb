@@ -1,7 +1,19 @@
 class PhotosController < ApplicationController
 
   def index
-    @photos = Photo.all
+    if params[:search]
+      params[:search].split.each do |tag|
+        found_photos = Photo.where(['photos.id IN (SELECT photo_id FROM taggings INNER JOIN tags ON taggings.tag_id = tags.id WHERE tags.content = ?)', tag])
+        if @photos
+          @photos = @photos | found_photos
+        else
+          @photos = found_photos
+        end
+      end
+      @photos = @photos.paginate(page: params[:page])
+    else
+      @photos = Photo.paginate(page: params[:page]).order('id ASC')
+    end
   end
 
   def show
