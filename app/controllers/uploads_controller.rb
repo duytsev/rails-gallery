@@ -1,12 +1,14 @@
 class UploadsController < ApplicationController
 
   def index
+    @upload = Upload.new
+    @photo = @upload.photos.build
     @uploads = Upload.paginate(page: params[:page]).order('created_at DESC')
   end
 
-  def new
-    @upload = Upload.new
-    @photo = @upload.photos.build
+  def show
+    @photos = Upload.find(params[:id]).photos
+    #@photos = Photo.nodesc
   end
 
   def create
@@ -14,11 +16,9 @@ class UploadsController < ApplicationController
     if @upload.save
       params[:upload][:photos_attributes][:image].each do |i|
         @photo = @upload.photos.create!(image: i)
-        # Category.all.each do |c|
-        #   c.categorizations.create(photo: @photo)
-        # end
       end
-      redirect_to uploads_path
+      flash[:success] = 'Добавьте описание к изображениям'
+      redirect_to @upload
     else
       render 'new'
     end

@@ -11,6 +11,9 @@ class Photo < ActiveRecord::Base
 
   self.per_page = 20
 
+  scope :nodesc, -> { where('photos.id NOT IN (SELECT photo_id from taggings) AND
+                      photos.id NOT IN (SELECT photo_id from categorizations)')}
+
   def tag_list
     self.tags.all.order('content').map{|t| t.content}.sort.join(' ')
   end

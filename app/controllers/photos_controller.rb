@@ -41,6 +41,10 @@ class PhotosController < ApplicationController
     end
   end
 
+  def nodesc
+    @photos = Photo.nodesc.paginate(page: params[:page]).order('id ASC')
+  end
+
   private
 
   def photo_params

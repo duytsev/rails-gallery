@@ -1,4 +1,9 @@
-<%= link_to 'Загрузить', new_upload_path %>
+<div class="row">
+  <%= render partial: 'form', layout: 'layouts/form_layout',
+             locals: { title: 'Загрузка фотографий',
+                       button_title: 'Загрузить',
+                       upload: @upload} %>
+</div>
 <h1>Последние загрузки</h1>
 <%= will_paginate @uploads %>
 <ul class="uploads">

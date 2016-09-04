@@ -6,6 +6,15 @@
     <% end %>
   </div>
 </div>
+
+<div class='total'>
+    Всего в галерее <%= Photo.count %> изображений
+</div>
+
+<div class='no-desc'>
+    <%= link_to "Без описания #{Photo.nodesc.count} изображений", nodesc_photos_path %>
+</div>
+
 <%= will_paginate @photos %>
 <div class='gallery row'>
   <%= render @photos %>

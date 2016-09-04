@@ -17,5 +17,7 @@ Rails.application.routes.draw do
 
   resources :categories
   resources :uploads
-  resources :photos, except: :new
+  resources :photos, except: :new do
+      get 'nodesc', on: :collection
+  end
 end
