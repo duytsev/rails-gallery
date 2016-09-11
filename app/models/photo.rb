@@ -8,6 +8,7 @@ class Photo < ActiveRecord::Base
   attr_accessor :tag_list
 
   mount_uploader :image, ImageUploader
+  validates_presence_of :image
 
   self.per_page = 20
 

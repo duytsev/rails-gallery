@@ -2,6 +2,9 @@
 <div class="description">
   <p>Здесь находятся фотографии, для которых вы пока что не выбрали категории и не добавили поисковые теги.</p>
 </div>
+<div class="back-link">
+  <%= link_to 'Назад в Галерею', root_path %>
+</div>
 <%= will_paginate @photos %>
 <div class='gallery row'>
   <%= render @photos %>

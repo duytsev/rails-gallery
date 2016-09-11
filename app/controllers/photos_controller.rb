@@ -14,10 +14,7 @@ class PhotosController < ApplicationController
       end
       @photos = @photos.paginate(page: params[:page])
     end
-  end
-
-  def show
-    @photo = Photo.find(params[:id])
+    session[:last_photo_page] = photos_url
   end
 
   def edit
@@ -35,6 +32,7 @@ class PhotosController < ApplicationController
   def update
     @photo = Photo.find(params[:id])
     if @photo.update(photo_params)
+      flash[:success] = 'Описание к изображению сохранено'
       redirect_to edit_photo_path
     else
       render 'edit'
@@ -43,6 +41,7 @@ class PhotosController < ApplicationController
 
   def nodesc
     @photos = Photo.nodesc.paginate(page: params[:page]).order('id ASC')
+    session[:last_photo_page] = nodesc_photos_path
   end
 
   private

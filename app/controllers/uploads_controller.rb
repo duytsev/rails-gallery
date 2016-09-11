@@ -7,20 +7,26 @@ class UploadsController < ApplicationController
   end
 
   def show
-    @photos = Upload.find(params[:id]).photos
-    #@photos = Photo.nodesc
+    @upload = Upload.find(params[:id])
+    @photos = @upload.photos
+    session[:last_photo_page] = upload_path
   end
 
   def create
-    @upload = Upload.new(upload_params)
-    if @upload.save
-      params[:upload][:photos_attributes][:image].each do |i|
-        @photo = @upload.photos.create!(image: i)
-      end
-      flash[:success] = 'Добавьте описание к изображениям'
-      redirect_to @upload
+    if params[:upload].blank?
+      flash[:warning] = 'Выберите файл'
+      redirect_to uploads_path
     else
-      render 'new'
+      @upload = Upload.new(upload_params)
+      if @upload.save
+        params[:upload][:photos_attributes][:image].each do |i|
+          @photo = @upload.photos.create!(image: i)
+        end
+        flash[:success] = 'Добавьте описание к изображениям'
+        redirect_to @upload
+      else
+        render 'new'
+      end
     end
   end
 
