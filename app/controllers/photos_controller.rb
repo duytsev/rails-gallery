@@ -21,6 +21,11 @@ class PhotosController < ApplicationController
     @photo = Photo.find(params[:id])
   end
 
+  def download
+    @photo = Photo.find(params[:id])
+    send_file @photo.image.file.file, disposition: :attachment
+  end
+
   def new
     @photo = Photo.new
   end

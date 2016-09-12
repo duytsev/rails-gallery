@@ -19,5 +19,6 @@ Rails.application.routes.draw do
   resources :uploads
   resources :photos, except: :new do
       get 'nodesc', on: :collection
+      get 'download', on: :member
   end
 end

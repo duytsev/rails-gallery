@@ -15,8 +15,8 @@
     <%= link_to "Без описания #{Photo.nodesc.count} изображений", nodesc_photos_path %>
 </div>
 
-<%= will_paginate @photos %>
+<%= will_paginate @photos, previous_label: '&#8592; Назад', next_label: 'Вперед  &#8594;' %>
 <div class='gallery row'>
   <%= render @photos %>
 </div>
-<%= will_paginate @photos %>
+<%= will_paginate @photos, previous_label: '&#8592; Назад', next_label: 'Вперед  &#8594;' %>

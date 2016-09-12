@@ -19,11 +19,26 @@ class UploadsController < ApplicationController
     else
       @upload = Upload.new(upload_params)
       if @upload.save
+        bad_files = ''
+        uploaded_count = 0
         params[:upload][:photos_attributes][:image].each do |i|
-          @photo = @upload.photos.create!(image: i)
+          begin
+            @photo = @upload.photos.create!(image: i)
+            uploaded_count += 1
+          rescue ActiveRecord::RecordInvalid
+            bad_files += i.original_filename + ' '
+          end
         end
-        flash[:success] = 'Добавьте описание к изображениям'
-        redirect_to @upload
+        if !bad_files.blank?
+          flash[:warning] = "Файлы с именами: #{bad_files} не были загружены, так как имеют неправильный формат"
+        end
+        if uploaded_count == 0
+          flash[:warning] = 'Не удалось загрузить ни одного файла'
+          redirect_to uploads_path
+        else
+          flash[:success] = 'Добавьте описание к изображениям'
+          redirect_to @upload
+        end
       else
         render 'new'
       end
