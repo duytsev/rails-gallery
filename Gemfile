@@ -18,6 +18,7 @@ gem 'will_paginate', '~> 3.1'
 gem 'bcrypt', '~> 3.1'
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'mini_magick', '~> 4.5', '>= 4.5.1'
+gem 'fog', '~> 1.38'
 gem 'jquery-fileupload-rails', '~> 0.4.6'
 
 group :development, :test do

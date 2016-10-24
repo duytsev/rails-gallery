@@ -23,7 +23,12 @@ class PhotosController < ApplicationController
 
   def download
     @photo = Photo.find(params[:id])
-    send_file @photo.image.file.file, disposition: :attachment
+    if Rails.env.development? || Rails.env.test?
+      send_file @photo.image.file.file, disposition: :attachment
+    elsif Rails.env.production
+      data = open(@photo.image.file.url)
+      send_data data.read, filename: @photo.image.to_s, disposition: :attachment
+    end
   end
 
   def new

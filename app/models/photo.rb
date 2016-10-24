@@ -1,7 +1,7 @@
 class Photo < ActiveRecord::Base
-  has_many :categorizations
+  has_many :categorizations, dependent: :destroy
   has_many :categories, through: :categorizations
-  has_many :taggings
+  has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
   belongs_to :upload
 
