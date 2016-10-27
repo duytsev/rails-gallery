@@ -1,8 +1,9 @@
 <div class='row search-panel'>
   <div class='col-md-6'>
-    <%= form_tag photos_path, {method: :get} do %>
+    <%= form_tag search_path, {method: :get} do %>
         <%= text_field_tag :search, params[:search], class: 'search-field' %>
         <%= submit_tag 'Поиск', class: 'search-button' %>
+        <%= link_to 'Расширенный поиск', search_path %>
     <% end %>
   </div>
 </div>
@@ -15,8 +16,4 @@
     <%= link_to "Без описания #{Photo.nodesc.count} изображений", nodesc_photos_path %>
 </div>
 
-<%= will_paginate @photos, previous_label: '&#8592; Назад', next_label: 'Вперед  &#8594;' %>
-<div class='gallery row'>
-  <%= render @photos %>
-</div>
-<%= will_paginate @photos, previous_label: '&#8592; Назад', next_label: 'Вперед  &#8594;' %>
+<%= render 'shared/gallery' %>
