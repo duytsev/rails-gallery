@@ -1,4 +1,5 @@
 class UploadsController < ApplicationController
+  include UploadsHelper
 
   def index
     @upload = Upload.new
@@ -17,8 +18,8 @@ class UploadsController < ApplicationController
       flash[:warning] = 'Выберите файл'
       redirect_to uploads_path
     else
-      @upload = Upload.new(upload_params)
-      if @upload.save
+      @upload = current_user.uploads.new(upload_params)
+      if @upload.save(upload_params)
         bad_files = ''
         uploaded_count = 0
         params[:upload][:photos_attributes][:image].each do |i|
@@ -46,7 +47,10 @@ class UploadsController < ApplicationController
   end
 
   def destroy
-    Upload.find(params[:id]).destroy
+    upload = Upload.find(params[:id])
+    if can_delete_upload?(upload)
+      upload.destroy
+    end
     redirect_to uploads_path
   end
 

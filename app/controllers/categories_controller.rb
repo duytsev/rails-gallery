@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  include CategoriesHelper
   before_action :require_login
 
   def index
@@ -7,8 +8,7 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    @category = Category.new(cat_params)
-    @category.save
+    current_user.categories.create!(cat_params)
     redirect_to categories_path
   end
 
@@ -27,7 +27,10 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    Category.find(params[:id]).destroy
+    category = Category.find(params[:id])
+    if can_delete_category?(category)
+      category.destroy
+    end
     redirect_to categories_path
   end
 

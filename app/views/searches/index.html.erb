@@ -4,7 +4,7 @@
         <%= text_field_tag :search, params[:search], class: 'search-field' %>
         <div class='categories-search'>
           <% Category.all.each do |c| %>
-            <%= check_box_tag 'categories[]', c.id %>
+            <%= check_box_tag 'categories[]', c.id, @selected_categories.include?(c.id.to_s) %>
             <%= c.name %>
             <br/>
           <% end %>

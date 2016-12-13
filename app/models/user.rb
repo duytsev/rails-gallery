@@ -1,5 +1,9 @@
 class User < ActiveRecord::Base
   authenticates_with_sorcery!
+
+  has_many :uploads
+  has_many :categories
+
   validates :password, length: { minimum: 6, maximum: 20 }, allow_nil: true
   validates :password, confirmation: true
   validates :email,presence: true, length: { maximum: 255 },

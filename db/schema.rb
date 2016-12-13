@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160704193236) do
+ActiveRecord::Schema.define(version: 20161213200146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,10 @@ ActiveRecord::Schema.define(version: 20160704193236) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
+
+  add_index "categories", ["user_id"], name: "index_categories_on_user_id", using: :btree
 
   create_table "categorizations", force: :cascade do |t|
     t.integer  "photo_id"
@@ -60,7 +63,10 @@ ActiveRecord::Schema.define(version: 20160704193236) do
   create_table "uploads", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
+
+  add_index "uploads", ["user_id"], name: "index_uploads_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                            null: false
@@ -75,9 +81,11 @@ ActiveRecord::Schema.define(version: 20160704193236) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["login"], name: "index_users_on_login", unique: true, using: :btree
 
+  add_foreign_key "categories", "users"
   add_foreign_key "categorizations", "categories"
   add_foreign_key "categorizations", "photos"
   add_foreign_key "photos", "uploads"
   add_foreign_key "taggings", "photos"
   add_foreign_key "taggings", "tags"
+  add_foreign_key "uploads", "users"
 end
