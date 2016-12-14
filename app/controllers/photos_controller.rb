@@ -1,7 +1,9 @@
 class PhotosController < ApplicationController
+  before_action :require_login, only: :download
 
   def index
     @photos = Photo.paginate(page: params[:page]).order('id ASC')
+    session[:last_photo_page] = photos_url
   end
 
   def edit

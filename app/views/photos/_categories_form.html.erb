@@ -1,9 +1,11 @@
-<%= form_for @photo do |f|%>
-    <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b|%>
-        <%= b.label(class: 'check-box-label') { b.check_box(class: 'check-box') + b.text } %>
+<%= form_for @photo do |f| %>
+    <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
+        <%= b.label(class: 'check-box-label') { b.check_box(class: 'check-box', disabled: !logged_in?) + b.text } %>
     <% end %>
     <br/>
     <%= f.label :name, 'Теги:' %>
-    <%= f.text_field :tag_list, class: 'form-control' %>
-    <%= submit_tag button_title, class: 'btn btn-primary', id: 'submit_save_categories' %>
+    <%= f.text_field :tag_list, class: 'form-control', disabled: !logged_in? %>
+    <% if logged_in? %>
+        <%= submit_tag button_title, class: 'btn btn-primary', id: 'submit_save_categories' %>
+    <% end %>
 <% end %>
