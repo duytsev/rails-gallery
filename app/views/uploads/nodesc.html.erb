@@ -1,0 +1,12 @@
+<div class="h1-no-desc"><h1>Изображения без описания для Загрузки <%= @upload.id %></h1></div>
+<div class="description">
+  <p>Здесь находятся фотографии, для которых вы пока что не выбрали категории и не добавили поисковые теги.</p>
+</div>
+<div class="back-link">
+  <%= link_to 'Назад к загрузке', upload_path(@upload) %>
+</div>
+<%= will_paginate @photos %>
+<div class='gallery row'>
+  <%= render @photos %>
+</div>
+<%= will_paginate @photos %>

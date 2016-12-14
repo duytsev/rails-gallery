@@ -8,8 +8,11 @@
   <%= link_to 'Назад к Загрузкам', uploads_path %>
   <div>
     <%= link_to 'Удалить', @upload, method: :delete,
-              data: { confirm: 'Удалить загрузку и все eе фотографии?' } %>
+                data: {confirm: 'Удалить загрузку и все eе фотографии?'} %>
   </div>
+  <% if Photo.nodesc_for_upload(@upload.id).count > 0 %>
+      <%= link_to "Без описания #{Photo.nodesc_for_upload(@upload.id).count} изображений", nodesc_upload_path(@upload.id) %>
+  <% end %>
 </div>
 
 <div class='gallery row'>

@@ -12,7 +12,7 @@
   Всего в галерее <%= Photo.count %> изображений
 </div>
 
-<% if logged_in? %>
+<% if logged_in? && Photo.nodesc.count > 0 %>
     <div class='no-desc'>
       <%= link_to "Без описания #{Photo.nodesc.count} изображений", nodesc_photos_path %>
     </div>

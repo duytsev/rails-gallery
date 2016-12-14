@@ -9,8 +9,14 @@ class UploadsController < ApplicationController
 
   def show
     @upload = Upload.find(params[:id])
-    @photos = @upload.photos
+    @photos = @upload.photos.paginate(page: params[:page]).order('id ASC')
     session[:last_photo_page] = upload_path
+  end
+
+  def nodesc
+    @upload = Upload.find(params[:id])
+    @photos = @upload.photos.nodesc_for_upload(params[:id]).paginate(page: params[:page]).order('id ASC')
+    session[:last_photo_page] = nodesc_upload_path
   end
 
   def create
@@ -38,7 +44,7 @@ class UploadsController < ApplicationController
           redirect_to uploads_path
         else
           flash[:success] = 'Добавьте описание к изображениям'
-          redirect_to @upload
+          redirect_to nodesc_upload_path(@upload)
         end
       else
         render 'new'
