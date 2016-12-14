@@ -15,9 +15,7 @@ class Photo < ActiveRecord::Base
   scope :nodesc, -> { where('photos.id NOT IN (SELECT photo_id from taggings) AND
                       photos.id NOT IN (SELECT photo_id from categorizations)') }
 
-  scope :nodesc_for_upload, -> (upload_id) { where(upload_id: upload_id)
-                                                 .where('photos.id NOT IN (SELECT photo_id from taggings) AND
-                      photos.id NOT IN (SELECT photo_id from categorizations)') }
+  scope :nodesc_for_upload, -> (upload_id) { where(upload_id: upload_id).nodesc }
 
   def tag_list
     self.tags.all.order('content').map { |t| t.content }.sort.join(' ')
