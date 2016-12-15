@@ -26,26 +26,9 @@ class UploadsController < ApplicationController
     else
       @upload = current_user.uploads.new(upload_params)
       if @upload.save(upload_params)
-        bad_files = ''
-        uploaded_count = 0
-        params[:upload][:photos_attributes][:image].each do |i|
-          begin
-            @photo = @upload.photos.create!(image: i)
-            uploaded_count += 1
-          rescue ActiveRecord::RecordInvalid
-            bad_files += i.original_filename + ' '
-          end
-        end
-        if !bad_files.blank?
-          flash[:warning] = "Файлы с именами: #{bad_files} не были загружены, так как имеют неправильный формат"
-        end
-        if uploaded_count == 0
-          flash[:warning] = 'Не удалось загрузить ни одного файла'
-          redirect_to uploads_path
-        else
-          flash[:success] = 'Добавьте описание к изображениям'
-          redirect_to nodesc_upload_path(@upload)
-        end
+        bad_files, uploaded_count = upload
+        bad_files_flash(bad_files)
+        after_upload(uploaded_count)
       else
         render 'new'
       end
@@ -61,6 +44,36 @@ class UploadsController < ApplicationController
   end
 
   private
+
+  def upload
+    bad_files = ''
+    uploaded_count = 0
+    params[:upload][:photos_attributes][:image].each do |i|
+      begin
+        @photo = @upload.photos.create!(image: i)
+        uploaded_count += 1
+      rescue ActiveRecord::RecordInvalid
+        bad_files += i.original_filename + ' '
+      end
+    end
+    return bad_files, uploaded_count
+  end
+
+  def bad_files_flash(bad_files)
+    if bad_files.present?
+      flash[:warning] = "Файлы с именами: #{bad_files} не были загружены, так как имеют неправильный формат"
+    end
+  end
+
+  def after_upload(uploaded_count)
+    if uploaded_count == 0
+      flash[:warning] = 'Не удалось загрузить ни одного файла'
+      redirect_to uploads_path
+    else
+      flash[:success] = 'Добавьте описание к изображениям'
+      redirect_to nodesc_upload_path(@upload)
+    end
+  end
 
   def upload_params
     params.require(:upload).permit(photos_attributes: [:id, :image])

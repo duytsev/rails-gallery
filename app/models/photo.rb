@@ -24,7 +24,7 @@ class Photo < ActiveRecord::Base
   def tag_list=(tags)
     t_arr = Array.new
     tags.split(' ').each_with_index do |t, i|
-      if i < 5
+      if i < 10
         t_arr.push(Tag.find_or_create_by(content: t.downcase))
       end
     end
