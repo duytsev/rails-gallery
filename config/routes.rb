@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root 'pages#home'
+  root 'photos#index'
   get 'add' => 'pages#add'
   get 'settings' => 'pages#settings'
 
@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post 'login' => 'sessions#create'
   get 'logout' => 'sessions#destroy'
   delete 'logout' => 'sessions#destroy'
+  get 'search' => 'searches#index'
 
   resources :users do
     member do
@@ -16,5 +17,11 @@ Rails.application.routes.draw do
   end
 
   resources :categories
-
+  resources :uploads do
+    get 'nodesc', on: :member
+  end
+  resources :photos, except: :new do
+      get 'nodesc', on: :collection
+      get 'download', on: :member
+  end
 end

@@ -1,21 +1,15 @@
 class CategoriesController < ApplicationController
+  include CategoriesHelper
   before_action :require_login
 
   def index
     @categories = Category.paginate(page: params[:page]).order('name ASC')
-  end
-
-  def new
     @category = Category.new
   end
 
   def create
-    @category = Category.new(cat_params)
-    if @category.save
-      redirect_to categories_path
-    else
-      render 'new'
-    end
+    current_user.categories.create!(cat_params)
+    redirect_to categories_path
   end
 
   def edit
@@ -33,13 +27,16 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    Category.find(params[:id]).destroy
+    category = Category.find(params[:id])
+    if can_delete_category?(category)
+      category.destroy
+    end
     redirect_to categories_path
   end
 
   private
 
   def cat_params
-    params.require(:category).permit(:name, :ctype)
+    params.require(:category).permit(:name)
   end
 end

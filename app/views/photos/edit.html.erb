@@ -1,0 +1,26 @@
+<% if session[:last_photo_page] %>
+    <div class="back-link">
+      <%= link_to 'Назад', session[:last_photo_page] %>
+    </div>
+<% end %>
+
+<% if logged_in? %>
+    <div class="download-link">
+      <%= link_to 'Скачать в полном размере', download_photo_path(@photo) %>
+    </div>
+<% end %>
+
+<div class="row">
+
+  <div class="col-md-5">
+    <% if logged_in? %>
+        <%= link_to image_tag(@photo.image_url(:thumb_medium)), @photo.image_url if @photo.image? %>
+    <% else %>
+        <%= image_tag(@photo.image_url(:thumb_medium)) %>
+    <% end %>
+  </div>
+
+  <%= render partial: 'categories_form', layout: 'layouts/form_layout',
+             locals: {title: 'Категории',
+                      button_title: 'Сохранить'} %>
+</div>

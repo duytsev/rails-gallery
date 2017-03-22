@@ -1,4 +1,9 @@
-<%= link_to 'Добавить', new_category_path, id: 'add_category' %>
+<div class="row">
+  <%= render partial: 'form', layout: 'layouts/form_layout',
+             locals: { title: 'Добавить категорию',
+                       button_title: 'Добавить',
+                       category: @category} %>
+</div>
 <h1>Категории</h1>
 <%= will_paginate @categories %>
 <ul class="categories">
